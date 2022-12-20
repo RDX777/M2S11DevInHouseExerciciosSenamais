@@ -10,6 +10,10 @@ export class CriacaoUsuarioDto {
   @IsNotEmpty()
   readonly usuario: string;
 
+  @IsString()
+  @IsNotEmpty()
+  readonly senha: string;
+
   @IsEmail()
   readonly email: string;
 

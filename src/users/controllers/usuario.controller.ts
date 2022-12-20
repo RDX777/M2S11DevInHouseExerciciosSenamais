@@ -13,6 +13,7 @@ export class UsuarioController {
     try {
       return await this.usuarioService.store(usuario);
     } catch (erro) {
+      console.log(erro)
       if (erro.code == 23505)
         throw new HttpException({ reason: erro.detail }, HttpStatus.CONFLICT);
       throw new HttpException({ reason: erro }, HttpStatus.BAD_REQUEST);

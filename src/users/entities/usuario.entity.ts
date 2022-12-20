@@ -17,14 +17,19 @@ export class UsuarioEntity {
     length: 255,
     unique: true
   })
-  usuario: string;
+  email: string;
 
   @Column({
     type: "varchar",
     length: 255,
-    unique: true
   })
-  email: string;
+  salt: string;
+
+  @Column({
+    type: "varchar",
+    length: 255,
+  })
+  senha: string;
 
   @Column({
     type: "varchar",
