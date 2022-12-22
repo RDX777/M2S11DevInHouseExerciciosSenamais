@@ -1,7 +1,9 @@
-import { Controller, Post, Body, HttpException, HttpStatus } from "@nestjs/common";
+import { Controller, Post, Body, HttpException, HttpStatus, UseGuards, Request } from "@nestjs/common";
 import { RetornoCriacaoUsuarioDto } from "../dtos/retorno-criacao-usuario.dto";
 import { CriacaoUsuarioDto } from "../dtos/criacao-usuarios.dto";
 import { UsuarioService } from "../services/usuario.service";
+import { JwtAuthGuard } from "src/core/auth/guards/jwt-auth.guard";
+import { TrocaSenhaDto } from "../dtos/troca-senha.dto";
 
 @Controller("usuarios")
 export class UsuarioController {
@@ -19,4 +21,13 @@ export class UsuarioController {
       throw new HttpException({ reason: erro }, HttpStatus.BAD_REQUEST);
     }
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post("trocasenha")
+  public async trocasenha(@Request() request: any, @Body() senhas: TrocaSenhaDto) {
+    // console.log(request)
+    // console.log(senhas)
+    await this.usuarioService.trocasenha(request.user, senhas);
+  }
+
 }

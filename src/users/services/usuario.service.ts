@@ -8,6 +8,7 @@ import { UsuarioEntity } from "../entities/usuario.entity";
 import { CredenciaisDTO } from "src/core/auth/dto/credenciais-usuario.dto";
 import { RetornoVerificacaoSenhaDto } from "../dtos/retorno-verificacao-senha.dto";
 import { AuthService } from "src/core/auth/services/auth.service";
+import { TrocaSenhaDto } from "../dtos/troca-senha.dto";
 
 @Injectable()
 export class UsuarioService {
@@ -50,6 +51,18 @@ export class UsuarioService {
         });
       }
     })
+  }
+
+  public async trocasenha(dadosUsuario: object, senhas: TrocaSenhaDto) {
+    console.log(dadosUsuario)
+    const usuarioAtual = {
+      email: dadosUsuario["email"],
+      senha: senhas.senhaAtual
+    }
+    const usuario = await this.verificaCredenciais(usuarioAtual);
+    const saltoUsuario = await this.criaSalt(12);
+    const hashSenha = await bcrypt.hash(senhas.senhaNova, saltoUsuario);
+    this.usuarioRepository.update({ id: usuario.id }, { senha: hashSenha });
   }
 
   private async criaSalt(saltos: number): Promise<string> {
