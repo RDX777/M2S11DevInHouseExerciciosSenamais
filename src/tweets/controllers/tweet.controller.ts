@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpException, HttpStatus, Get, Param, Query, Catch, UseGuards } from "@nestjs/common";
+import { Controller, Post, Body, HttpException, HttpStatus, Get, Param, Query, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/core/auth/guards/jwt-auth.guard";
 import { CriacaoTweetDTO } from "../dtos/criacao-tweet.dto";
 import { TweetService } from "../services/tweet.service";
