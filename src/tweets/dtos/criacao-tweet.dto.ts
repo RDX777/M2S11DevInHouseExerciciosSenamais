@@ -3,7 +3,7 @@ import { CriacaoUsuarioDto } from "src/users/dtos/criacao-usuarios.dto";
 
 export class CriacaoTweetDTO {
 
-  readonly usuario_id: CriacaoUsuarioDto;
+  // usuario_id: CriacaoUsuarioDto;
 
   @IsString()
   @IsNotEmpty()

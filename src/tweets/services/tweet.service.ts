@@ -18,11 +18,16 @@ export class TweetService {
     private usuarioRepository: Repository<UsuarioEntity>
   ) { }
 
-  public async store(tweet: CriacaoTweetDTO): Promise<RetornoCriacaoTweetDto> {
+  public async store(dadosUsuario: object, tweet: CriacaoTweetDTO): Promise<RetornoCriacaoTweetDto> {
     return new Promise(async (resolve, reject) => {
       try {
-
-        const resposta = await this.tweetRepository.insert(tweet)
+        const tweetUser = {
+          usuario: {
+            id: dadosUsuario["id"]
+          },
+          texto: tweet.texto
+        }
+        const resposta = await this.tweetRepository.insert(tweetUser)
         const { id } = (resposta).identifiers[0];
         let idCriacao = new TweetEntity;
         idCriacao = { ...id, id: id };

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpException, HttpStatus, Get, Param, Query, UseGuards } from "@nestjs/common";
+import { Controller, Post, Body, HttpException, HttpStatus, Get, Param, Query, UseGuards, Request } from "@nestjs/common";
 import { JwtAuthGuard } from "src/core/auth/guards/jwt-auth.guard";
 import { CriacaoTweetDTO } from "../dtos/criacao-tweet.dto";
 import { TweetService } from "../services/tweet.service";
@@ -10,9 +10,9 @@ export class TweetController {
   constructor(private tweetService: TweetService) { }
 
   @Post("cria")
-  public async store(@Body() tweet: CriacaoTweetDTO) {
+  public async store(@Request() request: any, @Body() tweet: CriacaoTweetDTO) {
     try {
-      return await this.tweetService.store(tweet);
+      return await this.tweetService.store(request.user, tweet);
     } catch (erro) {
       throw new HttpException({ reason: erro }, HttpStatus.BAD_REQUEST);
     }
