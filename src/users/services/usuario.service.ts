@@ -54,7 +54,6 @@ export class UsuarioService {
   }
 
   public async trocasenha(dadosUsuario: object, senhas: TrocaSenhaDto) {
-    console.log(dadosUsuario)
     const usuarioAtual = {
       email: dadosUsuario["email"],
       senha: senhas.senhaAtual
@@ -62,7 +61,7 @@ export class UsuarioService {
     const usuario = await this.verificaCredenciais(usuarioAtual);
     const saltoUsuario = await this.criaSalt(12);
     const hashSenha = await bcrypt.hash(senhas.senhaNova, saltoUsuario);
-    this.usuarioRepository.update({ id: usuario.id }, { senha: hashSenha });
+    this.usuarioRepository.update({ id: usuario.id }, { senha: hashSenha, salt: saltoUsuario });
   }
 
   private async criaSalt(saltos: number): Promise<string> {
