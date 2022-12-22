@@ -8,7 +8,7 @@ import { UsuarioService } from "../../../users/services/usuario.service";
 import { NestResponse } from "src/core/http/nest-response";
 import { NestResponseBuilder } from "src/core/http/nest-response-builder";
 
-// @UseGuards(JwtAuthGuard) //Autenticação
+//@UseGuards(JwtAuthGuard) //Autenticação
 // @Roles("") // Autorização
 @Controller("auth")
 export class AuthController {

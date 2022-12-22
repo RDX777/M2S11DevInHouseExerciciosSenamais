@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { JwtService } from '@nestjs/jwt';
 
 import { CredenciaisDTO } from "../dto/credenciais-usuario.dto";
@@ -8,7 +8,8 @@ import { UsuarioService } from "src/users/services/usuario.service";
 export class AuthService {
 
   constructor(private jwtService: JwtService,
-    private readonly usuarioService: UsuarioService) { }
+    @Inject(forwardRef(() => UsuarioService))
+    private usuarioService: UsuarioService) { }
 
   public async criaToken(credenciais: CredenciaisDTO) {
     const usuario = await this.usuarioService.verificaCredenciais(credenciais);

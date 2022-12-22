@@ -1,10 +1,12 @@
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+
 import { TransformResponseInterceptor } from './core/http/transform-response-interceptor';
 import { TweetModule } from './tweets/tweet.module';
 import { UsuarioModule } from './users/usuario.module';
 import { AuthModule } from './core/auth/auth.module';
+
 
 @Module({
   imports: [
@@ -14,7 +16,7 @@ import { AuthModule } from './core/auth/auth.module';
     }),
     UsuarioModule,
     TweetModule,
-    AuthModule,
+    AuthModule
   ],
   controllers: [],
   providers: [
@@ -25,6 +27,7 @@ import { AuthModule } from './core/auth/auth.module';
     {
       provide: APP_INTERCEPTOR,
       useClass: TransformResponseInterceptor,
-    },],
+    },
+  ],
 })
 export class AppModule { }

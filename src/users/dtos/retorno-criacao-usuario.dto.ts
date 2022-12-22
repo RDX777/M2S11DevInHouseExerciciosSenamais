@@ -1,3 +1,3 @@
 export class RetornoCriacaoUsuarioDto {
-  readonly id: number;
+  readonly token: string;
 }
